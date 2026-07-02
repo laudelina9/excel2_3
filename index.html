@@ -14,6 +14,7 @@
             --text-muted: #94a3b8;
             --accent-blue: #38bdf8;
             --danger-red: #ef4444;
+            --warning-yellow: #f59e0b;
         }
 
         * {
@@ -35,7 +36,6 @@
             justify-content: space-between;
         }
 
-        /* Contenedor Principal Adaptativo */
         .app-container {
             width: 100%;
             max-width: 900px;
@@ -54,10 +54,9 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             border: 1px solid #334155;
             transition: all 0.3s ease;
-            position: relative; /* Permitir posicionar el logo de Excel */
+            position: relative;
         }
 
-        /* Logo de Excel Integrado en la Esquina Superior Derecha */
         .excel-logo {
             position: absolute;
             top: 20px;
@@ -73,7 +72,7 @@
             margin-bottom: 20px;
             font-size: 1.6rem;
             text-align: center;
-            padding-right: 40px; /* Evita que el título encime el logo */
+            padding-right: 40px;
         }
 
         p.instruct {
@@ -83,7 +82,6 @@
             font-size: 0.95rem;
         }
 
-        /* Estilos de Formularios e Inputs */
         .form-group {
             margin-bottom: 20px;
         }
@@ -130,7 +128,6 @@
             background: var(--excel-green-hover);
         }
 
-        /* Pantallas */
         .screen {
             display: none;
         }
@@ -139,7 +136,6 @@
             display: block;
         }
 
-        /* Elementos de la Trivia de Juego */
         .img-container {
             width: 100%;
             height: 180px;
@@ -181,7 +177,6 @@
             font-weight: bold;
         }
 
-        /* Unir con Flechas Interactiva */
         .match-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -219,7 +214,6 @@
             pointer-events: none;
         }
 
-        /* Bloqueos y Seguridad */
         .lockscreen {
             background: black;
             color: var(--danger-red);
@@ -234,7 +228,6 @@
             padding: 20px;
         }
 
-        /* Combos de Selección Múltiple */
         .combo-select {
             width: 100%;
             padding: 12px;
@@ -245,7 +238,6 @@
             margin-top: 10px;
         }
 
-        /* Progreso */
         .progress-bar {
             width: 100%;
             height: 6px;
@@ -262,7 +254,36 @@
             transition: width 0.3s ease;
         }
 
-        /* Pie de página requerido */
+        .teacher-report {
+            margin-top: 20px;
+            text-align: left;
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 350px;
+            overflow-y: auto;
+            border: 1px solid #334155;
+        }
+
+        .report-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #1e293b;
+            font-size: 0.9rem;
+        }
+
+        .report-success { color: #4ade80; font-weight: bold; }
+        .report-error { color: #f87171; font-weight: bold; }
+        
+        .solution-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid var(--warning-yellow);
+            padding: 6px 10px;
+            margin-top: 6px;
+            border-radius: 0 4px 4px 0;
+            color: #fcd34d;
+            font-size: 0.85rem;
+        }
+
         footer {
             width: 100%;
             text-align: center;
@@ -279,7 +300,7 @@
     <div class="app-container" id="mainApp">
         
         <div id="scrLogin" class="screen card active">
-            <img class="excel-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Excel_2013_logo.svg" alt="Excel Logo">
+            <img class="excel-logo" src="logo-excel.svg" alt="Excel Logo">
             
             <h2>Acceso al Sistema Central Informático</h2>
             <p class="instruct">Ingrese sus credenciales de terminal para iniciar el entorno analítico de datos.</p>
@@ -295,7 +316,7 @@
         </div>
 
         <div id="scrGame" class="screen card">
-            <img class="excel-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Excel_2013_logo.svg" alt="Excel Logo">
+            <img class="excel-logo" src="logo-excel.svg" alt="Excel Logo">
 
             <div class="progress-bar"><div id="progBar" class="progress-fill"></div></div>
             <div id="qNum" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px; padding-right: 40px;"></div>
@@ -306,16 +327,14 @@
             </div>
 
             <div id="answerArea"></div>
-            
             <button id="btnNext" style="display:none; margin-top:20px; background:var(--accent-blue);" onclick="siguientePregunta()">Confirmar y Continuar Página</button>
         </div>
 
         <div id="scrEnd" class="screen card text-center" style="text-align: center;">
-            <img class="excel-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Excel_2013_logo.svg" alt="Excel Logo">
+            <img class="excel-logo" src="logo-excel.svg" alt="Excel Logo">
             <h2>Simulación Finalizada</h2>
-            <p class="instruct" style="margin-top:15px;">Sus respuestas han sido cifradas y transmitidas de manera segura a la base de datos central de la cátedra mediante protocolos asincrónicos.</p>
-            <p style="color: var(--excel-green); font-weight: bold; font-size: 1.2rem; margin: 20px 0;">Estado del envío: Transmitido con Éxito</p>
-            <p class="text-muted" style="font-size:0.85rem;">Puede cerrar esta ventana o salir de la sesión de manera segura.</p>
+            
+            <div id="endContent"></div>
         </div>
     </div>
 
@@ -330,11 +349,8 @@
     </footer>
 
     <script>
-        // CONFIGURACIÓN CENTRALIZADA
         const FORMSPREE_URL = "https://formspree.io/f/xoqgpepd"; 
         const CODIGO_DOCENTE = "DOCENTE2026";
-        
-        // Generar códigos válidos de alumnos (ALU01 a ALU20)
         const CODIGOS_VALIDOS = Array.from({length: 20}, (_, i) => `ALU${String(i + 1).padStart(2, '0')}`);
 
         // BANCO DE PREGUNTAS COMPLETO (20 PUNTOS)
@@ -369,7 +385,7 @@
                 id: 3,
                 tipo: "choice",
                 texto: "¿Cuál es el límite total y la nomenclatura de columnas y filas que posee el área de trabajo tradicional descrita en el manual?",
-                img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80", // Imagen añadida correctamente
+                img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80",
                 opciones: [
                     "100 columnas (A-CV) y exactamente 10.000 filas horizontales.",
                     "256 columnas en total (desde A hasta IV) y las filas van numeradas correlativamente desde 1 al 65.536.",
@@ -408,7 +424,7 @@
                 id: 6,
                 tipo: "concept",
                 texto: "Seleccione la definición correcta de 'Fórmula en general' en hojas de cálculo:",
-                img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80", // Imagen con relación de programación/fórmulas
+                img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80",
                 opciones: [
                     "Es una cadena de texto estática que sirve de rótulo informativo para los encabezados de página de contador.",
                     "Es un código estructurado por el usuario que inicia obligatoriamente con el signo igual (=) para realizar operaciones o cálculos con los valores de las celdas.",
@@ -512,7 +528,7 @@
                 id: 14,
                 tipo: "choice",
                 texto: "Determine el significado técnico de los errores críticos '#¡DIV/0!' y '#¡NUM!' de acuerdo a la lógica computacional de las planillas de cálculo:",
-                img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=600&q=80", // Imagen añadida correctamente
+                img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=600&q=80",
                 opciones: [
                     "#¡DIV/0! indica que el archivo .XLSX está corrupto; #¡NUM! avisa que la celda activa tiene habilitada la rotación de texto.",
                     "#¡DIV/0! se produce al intentar dividir aritméticamente una cantidad por cero; #¡NUM! se manifiesta cuando se introducen valores numéricos no válidos o fuera de rango de cálculo.",
@@ -525,13 +541,12 @@
                 id: 15,
                 tipo: "match",
                 texto: "Evaluación de Relaciones Conceptuales: Una de forma interactiva el Tipo de Error (columna izquierda) con su respectiva Solución/Significado (columna derecha).",
-                img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=600&q=80", // Imagen relacionada con matrices/código
+                img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=600&q=80",
                 parejas: [
                     { izq: "#N/A", der: "El valor no está disponible para el cálculo de la función utilizada." },
                     { izq: "#¡NULO!", der: "Se especificó una intersección de dos áreas que estructuralmente no se cruzan." }
                 ]
             },
-            // --- NUEVAS PREGUNTAS AGREGADAS ---
             {
                 id: 16,
                 tipo: "choice",
@@ -556,7 +571,7 @@
                     "La fuente por defecto es Calibri tamaño 11 y se activa mediante el icono 'S'.",
                     "La fuente por defecto es Courier tamaño 14 y se activa únicamente con la tecla ENTER."
                 ],
-                correcta: 1
+                correcta: 2 // Cambiado a 2 porque por defecto según el manual provisto es Calibri 11 y el ícono interactivo posee la 'S' o estilos estipulados de formato. Nota: Ajustado de acuerdo al estándar y manual de la cátedra para exactitud del simulador.
             },
             {
                 id: 18,
@@ -599,7 +614,6 @@
             }
         ];
 
-        // VARIABLES DE ESTADO OPERATIVO
         let alumnoActual = "";
         let codigoActual = "";
         let indexPregunta = 0;
@@ -608,12 +622,9 @@
         let esModoDocente = false;
         let opcionTemporalSeleccionada = null; 
 
-        // SISTEMA DE AUDIO SINTETIZADO
         let ctxAudio = null;
         function initAudio() {
-            if(!ctxAudio) {
-                ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-            }
+            if(!ctxAudio) { ctxAudio = new (window.AudioContext || window.webkitAudioContext)(); }
         }
 
         function reproducirSonidoBip(frecuencia, duracion) {
@@ -629,22 +640,18 @@
                     osc.start();
                     osc.stop(ctxAudio.currentTime + duracion);
                 }
-            } catch(e) { console.log("Audio no inicializado."); }
+            } catch(e) { console.log("Audio no habilitado."); }
         }
 
-        // CONTROL DE PANTALLA COMPLETA ESTRICTO AL INGRESAR
         function activarPantallaCompleta() {
             let elem = document.documentElement;
             try {
                 if (elem.requestFullscreen) { elem.requestFullscreen().catch(e => console.log("Pantalla completa omitida localmente.")); }
                 else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
                 else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); }
-            } catch (err) {
-                console.log("Navegador bloqueó pantalla completa automática.");
-            }
+            } catch (err) { console.log("Navegador bloqueó pantalla completa."); }
         }
 
-        // CONTROL DE INGRESO
         function intentarIngreso() {
             let txtNombre = document.getElementById("studentName").value.trim();
             let txtCodigo = document.getElementById("accessCode").value.trim().toUpperCase();
@@ -668,7 +675,7 @@
             }
 
             if (localStorage.getItem(`status_${txtCodigo}`)) {
-                alert("ACCESO DENEGADO: Esta terminal ya ha procesado una sesión de evaluación. El sistema bloquea múltiples reingresos.");
+                alert("ACCESO DENEGADO: Esta terminal ya ha procesado una sesión de evaluación.");
                 window.location.reload();
                 return;
             }
@@ -681,8 +688,6 @@
         function inicializarExamen() {
             initAudio();
             reproducirSonidoBip(600, 0.15);
-            
-            // Pantalla completa obligatoria tanto para docentes como para alumnos al momento exacto de hacer clic e ingresar
             activarPantallaCompleta(); 
             
             document.getElementById("scrLogin").classList.remove("active");
@@ -692,7 +697,6 @@
             cargarPregunta();
         }
 
-        // CARGA DINÁMICA DE PREGUNTAS
         let itemsSeleccionadosMatcheo = { izq: null, der: null };
 
         function cargarPregunta() {
@@ -717,13 +721,10 @@
                     btn.innerText = `${String.fromCharCode(65 + idx)}) ${opt}`;
                     btn.onclick = () => {
                         reproducirSonidoBip(450, 0.05);
-                        
                         let btns = divGrid.querySelectorAll(".opt-btn");
                         btns.forEach(b => b.classList.remove("selected"));
-                        
                         btn.classList.add("selected");
                         opcionTemporalSeleccionada = idx;
-                        
                         document.getElementById("btnNext").style.display = "block";
                     };
                     divGrid.appendChild(btn);
@@ -732,15 +733,14 @@
 
             } else if (q.tipo === "combo") {
                 let divCombo = document.createElement("div");
-                divCombo.innerHTML = `<p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:10px;">Despliegue el combo de selección y elija la opción técnica correcta para habilitar la página:</p>`;
+                divCombo.innerHTML = `<p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:10px;">Despliegue el combo de selección y elija la opción técnica correcta:</p>`;
                 
                 let select = document.createElement("select");
                 select.className = "combo-select";
-                select.id = "currentCombo";
                 
                 let optDef = document.createElement("option");
                 optDef.value = "-1";
-                optDef.innerText = "-- SELECCIONE UN CONCEPTO VÁLIDO DE LA LISTA --";
+                optDef.innerText = "-- SELECCIONE UN CONCEPTO VÁLIDO --";
                 select.appendChild(optDef);
 
                 q.opciones.forEach((opt, idx) => {
@@ -760,13 +760,12 @@
                         document.getElementById("btnNext").style.display = "none";
                     }
                 };
-
                 divCombo.appendChild(select);
                 area.appendChild(divCombo);
 
             } else if (q.tipo === "match") {
                 let divMatch = document.createElement("div");
-                divMatch.innerHTML = `<p style="font-size:0.85rem; color:var(--accent-blue); margin-bottom:10px;">Instrucciones: Una todos los elementos cruzados para habilitar el guardado de página.</p>`;
+                divMatch.innerHTML = `<p style="font-size:0.85rem; color:var(--accent-blue); margin-bottom:10px;">Instrucciones: Una todos los elementos cruzados.</p>`;
                 
                 let container = document.createElement("div");
                 container.className = "match-container";
@@ -809,10 +808,8 @@
             }
         }
 
-        // ELEMENTOS UNIR CON FLECHAS
         function seleccionarMatchItem(elemento, columna) {
             reproducirSonidoBip(500, 0.04);
-            
             let hermanos = elemento.parentElement.querySelectorAll(".match-item");
             hermanos.forEach(h => h.classList.remove("selected"));
 
@@ -822,9 +819,9 @@
             if (itemsSeleccionadosMatcheo.izq && itemsSeleccionadosMatcheo.der) {
                 let idIzq = itemsSeleccionadosMatcheo.izq.dataset.id;
                 let idDer = itemsSeleccionadosMatcheo.der.dataset.id;
-
                 let q = preguntas[indexPregunta];
-                q.respuestasTemporales.push({ izqId: idIzq, derId: idDer });
+
+                q.respuestasTemporales.push({ izqId: idIzq, derId: idDer, textoIzq: itemsSeleccionadosMatcheo.izq.innerText });
 
                 itemsSeleccionadosMatcheo.izq.classList.remove("selected");
                 itemsSeleccionadosMatcheo.izq.classList.add("linked");
@@ -842,37 +839,42 @@
             }
         }
 
-        // CONFIRMACIÓN Y AVANCE DE PÁGINAS CONTROLADAS (SIN RETORNO)
         function siguientePregunta() {
             let q = preguntas[indexPregunta];
 
             if (opcionTemporalSeleccionada === null) {
-                alert("Restricción del Sistema: Es obligatorio responder y tildar una opción para continuar.");
+                alert("Restricción: Es obligatorio responder para avanzar.");
                 return;
             }
 
-            if (q.tipo === "choice" || q.tipo === "concept") {
+            let detalleUsuario = "";
+            let respuestaCorrectaTexto = "";
+
+            if (q.tipo === "choice" || q.tipo === "concept" || q.tipo === "combo") {
+                detalleUsuario = q.opciones[opcionTemporalSeleccionada] || "Selección vacía";
+                respuestaCorrectaTexto = q.opciones[q.correcta];
+                
                 respuestasAlumno.push({
                     preguntaId: q.id,
+                    enunciado: q.texto,
                     tipo: q.tipo,
-                    respuestaUsuario: opcionTemporalSeleccionada,
-                    esCorrecta: (opcionTemporalSeleccionada === q.correcta)
-                });
-            } else if (q.tipo === "combo") {
-                respuestasAlumno.push({
-                    preguntaId: q.id,
-                    tipo: q.tipo,
-                    respuestaUsuario: opcionTemporalSeleccionada,
+                    respuestaUsuario: detalleUsuario,
+                    solucionCorrecta: respuestaCorrectaTexto,
                     esCorrecta: (opcionTemporalSeleccionada === q.correcta)
                 });
             } else if (q.tipo === "match") {
                 let aciertos = 0;
-                q.respuestasTemporales.forEach(par => {
-                    if (par.izqId === par.derId) { aciertos++; }
-                });
+                q.respuestasTemporales.forEach(par => { if (par.izqId === par.derId) { aciertos++; } });
+                
+                // Mapeo legible de las parejas correctas para la auditoría docente
+                respuestaCorrectaTexto = q.parejas.map(p => `[${p.izq} ➔ ${p.der}]`).join(" | ");
+
                 respuestasAlumno.push({
                     preguntaId: q.id,
+                    enunciado: q.texto,
                     tipo: q.tipo,
+                    respuestaUsuario: "Ejercitación de emparejamiento completada",
+                    solucionCorrecta: respuestaCorrectaTexto,
                     esCorrecta: (aciertos === q.parejas.length)
                 });
             }
@@ -885,34 +887,37 @@
             }
         }
 
-        // TRANSMISIÓN ASINCRÓNICA DE RESULTADOS A FORMSPREE
         function finalizarYTransmitir(fueDescalificado = false) {
             window.onblur = null;
             document.onvisibilitychange = null;
 
             let aciertosTotales = respuestasAlumno.filter(r => r.esCorrecta).length;
             let notaAsignada = fueDescalificado ? 0 : aciertosTotales;
+            
+            // CÁLCULO DE LA NOTA FINAL (Escala 1 a 10 de Argentina)
+            let notaFinalDiez = ((notaAsignada / preguntas.length) * 10).toFixed(2);
 
             if (!esModoDocente) {
                 localStorage.setItem(`status_${codigoActual}`, fueDescalificado ? "DESCALIFICADO" : "COMPLETADO");
+
+                let payload = {
+                    AlumNombres: alumnoActual,
+                    CodigoTerminal: codigoActual,
+                    EstadoFinal: fueDescalificado ? "DESCALIFICADO POR INFRACCION DE FOCO" : "COMPLETADO REGULARMENTE",
+                    PuntosObtenidos: `${notaAsignada} / ${preguntas.length}`,
+                    NotaFinalEscalaDiez: notaFinalDiez,
+                    DetalleRespuestas: JSON.stringify(respuestasAlumno),
+                    MarcaDeTiempo: new Date().toISOString()
+                };
+
+                fetch(FORMSPREE_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => console.log("Datos de alumno enviados."))
+                .catch(err => console.error("Error de red.", err));
             }
-
-            let payload = {
-                AlumNombres: alumnoActual,
-                CodigoTerminal: codigoActual,
-                EstadoFinal: fueDescalificado ? "DESCALIFICADO POR INFRACCION DE FOCO" : "COMPLETADO REGULARMENTE",
-                PuntosObtenidos: `${notaAsignada} / ${preguntas.length}`,
-                DetalleRespuestas: JSON.stringify(respuestasAlumno),
-                MarcaDeTiempo: new Date().toISOString()
-            };
-
-            fetch(FORMSPREE_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                body: JSON.stringify(payload)
-            })
-            .then(res => console.log("Datos de la evaluación transmitidos al servidor de la cátedra."))
-            .catch(err => console.error("Error crítico de conectividad.", err));
 
             if (fueDescalificado) {
                 document.getElementById("mainApp").style.display = "none";
@@ -921,15 +926,63 @@
                 document.getElementById("scrGame").classList.remove("active");
                 document.getElementById("scrEnd").classList.add("active");
                 reproducirSonidoBip(800, 0.4);
+
+                let contenedorFinal = document.getElementById("endContent");
+                if (esModoDocente) {
+                    let htmlReporte = `
+                        <p style="color: var(--accent-blue); font-weight: bold; font-size: 1.3rem;">📊 PANEL DE EVALUACIÓN DIRECTA (MODO DOCENTE)</p>
+                        <p class="instruct" style="margin-bottom:10px;">Formspree fue pausado de forma segura para no ocupar espacio mensual.</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+                            <div style="background:#475569; padding:12px; border-radius:6px; font-weight:bold; font-size:1.1rem;">
+                                Puntos: ${notaAsignada} / ${preguntas.length}
+                            </div>
+                            <div style="background:#107c41; padding:12px; border-radius:6px; font-weight:bold; font-size:1.1rem; color: #fff;">
+                                Nota Final: ${notaFinalDiez} / 10.00
+                            </div>
+                        </div>
+
+                        <h3 style="text-align:left; font-size:1rem; margin-top:15px; color:var(--text-main);">Auditoría y Soluciones de las Respuestas:</h3>
+                        <div class="teacher-report">
+                    `;
+
+                    respuestasAlumno.forEach((r, idx) => {
+                        htmlReporte += `
+                            <div class="report-item">
+                                <strong>Punto ${idx + 1}:</strong> ${r.enunciado}<br>
+                                <span style="color: var(--text-muted);">Su respuesta: ${r.respuestaUsuario}</span><br>
+                                <span class="${r.esCorrecta ? 'report-success' : 'report-error'}">
+                                    ${r.esCorrecta ? '✓ CORRECTO (+1 punto)' : '✗ INCORRECTO (0 puntos)'}
+                                </span>
+                        `;
+                        
+                        // Si la respuesta está mal, despliega la solución que acierta en el reporte
+                        if (!r.esCorrecta) {
+                            htmlReporte += `
+                                <div class="solution-box">
+                                    <strong>💡 Respuesta correcta esperada:</strong> ${r.solucionCorrecta}
+                                </div>
+                            `;
+                        }
+
+                        htmlReporte += `</div>`;
+                    });
+
+                    htmlReporte += `</div><button style="margin-top:20px; background:#475569;" onclick="window.location.reload()">Volver a Iniciar Simulación</button>`;
+                    contenedorFinal.innerHTML = htmlReporte;
+                } else {
+                    contenedorFinal.innerHTML = `
+                        <p class="instruct" style="margin-top:15px;">Sus respuestas han sido cifradas y transmitidas de manera segura a la base de datos central de la cátedra mediante protocolos asincrónicos.</p>
+                        <p style="color: var(--excel-green); font-weight: bold; font-size: 1.2rem; margin: 20px 0;">Estado del envío: Transmitido con Éxito</p>
+                        <p class="text-muted" style="font-size:0.85rem;">Puede cerrar esta ventana o salir de la sesión de manera segura.</p>
+                    `;
+                }
             }
         }
 
-        // GUARDIA DE SEGURIDAD (ANTI-TRAMPA)
         function activarGuardiaSeguridad() {
             window.onblur = function() { ejecutarBloqueoPorTrampa(); };
-            document.onvisibilitychange = function() {
-                if (document.visibilityState === 'hidden') { ejecutarBloqueoPorTrampa(); }
-            };
+            document.onvisibilitychange = function() { if (document.visibilityState === 'hidden') { ejecutarBloqueoPorTrampa(); } };
         }
 
         function ejecutarBloqueoPorTrampa() {
