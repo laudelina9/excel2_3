@@ -57,13 +57,12 @@
             position: relative;
         }
 
-        .excel-logo {
+        .excel-logo-vector {
             position: absolute;
             top: 20px;
             right: 20px;
             width: 35px;
             height: 35px;
-            object-fit: contain;
             opacity: 0.9;
         }
 
@@ -94,7 +93,7 @@
             font-size: 0.9rem;
         }
 
-        input[type="text"] {
+        input[type="text"], select.login-select {
             width: 100%;
             padding: 12px;
             border-radius: 6px;
@@ -102,10 +101,13 @@
             background: #0f172a;
             color: white;
             font-size: 1rem;
+        }
+
+        input[type="text"] {
             text-transform: uppercase;
         }
 
-        input[type="text"]:focus {
+        input[type="text"]:focus, select.login-select:focus {
             outline: none;
             border-color: var(--excel-green);
         }
@@ -300,7 +302,12 @@
     <div class="app-container" id="mainApp">
         
         <div id="scrLogin" class="screen card active">
-            <img class="excel-logo" src="logo-excel.png" alt="Excel Logo">
+            <svg class="excel-logo-vector" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.5 0H2a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V9.5L14.5 0z" fill="#107C41"/>
+                <path d="M14.5 0v7.5a2 2 0 0 0 2 2H24L14.5 0z" fill="#1f9a55"/>
+                <path d="M17.5 13.25l-2.25 3.25 2.25 3.25h-1.5l-1.5-2.25-1.5 2.25h-1.5l2.25-3.25-2.25-3.25h1.5l1.5 2.25 1.5-2.25h1.5z" fill="#FFF"/>
+                <path d="M5.5 6h5v1.5h-5V6zm0 3.5h5v1.5h-5V9.5zm0 3.5h3v1.5h-3V13zm0 3.5h3v1.5h-3v-1.5z" fill="#FFF" fill-opacity=".6"/>
+            </svg>
             
             <h2>Acceso al Sistema Central Informático</h2>
             <p class="instruct">Ingrese sus credenciales de terminal para iniciar el entorno analítico de datos.</p>
@@ -312,11 +319,24 @@
                 <label for="accessCode">Código Único de Terminal de Alumno (ALU01 - ALU20)</label>
                 <input type="text" id="accessCode" autocomplete="off">
             </div>
+            <div class="form-group">
+                <label for="examTema">Asignación de Tema Evaluativo (Consulte a su docente)</label>
+                <select id="examTema" class="login-select">
+                    <option value="">-- SELECCIONE EL TEMA ASIGNADO --</option>
+                    <option value="TEMA 1">TEMA 1</option>
+                    <option value="TEMA 2">TEMA 2</option>
+                </select>
+            </div>
             <button onclick="intentarIngreso()">Iniciar Sesión e Ingresar al Examen</button>
         </div>
 
         <div id="scrGame" class="screen card">
-            <img class="excel-logo" src="logo-excel.png" alt="Excel Logo">
+            <svg class="excel-logo-vector" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.5 0H2a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V9.5L14.5 0z" fill="#107C41"/>
+                <path d="M14.5 0v7.5a2 2 0 0 0 2 2H24L14.5 0z" fill="#1f9a55"/>
+                <path d="M17.5 13.25l-2.25 3.25 2.25 3.25h-1.5l-1.5-2.25-1.5 2.25h-1.5l2.25-3.25-2.25-3.25h1.5l1.5 2.25 1.5-2.25h1.5z" fill="#FFF"/>
+                <path d="M5.5 6h5v1.5h-5V6zm0 3.5h5v1.5h-5V9.5zm0 3.5h3v1.5h-3V13zm0 3.5h3v1.5h-3v-1.5z" fill="#FFF" fill-opacity=".6"/>
+            </svg>
 
             <div class="progress-bar"><div id="progBar" class="progress-fill"></div></div>
             <div id="qNum" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px; padding-right: 40px;"></div>
@@ -331,7 +351,12 @@
         </div>
 
         <div id="scrEnd" class="screen card text-center" style="text-align: center;">
-            <img class="excel-logo" src="logo-excel.png" alt="Excel Logo">
+            <svg class="excel-logo-vector" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.5 0H2a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V9.5L14.5 0z" fill="#107C41"/>
+                <path d="M14.5 0v7.5a2 2 0 0 0 2 2H24L14.5 0z" fill="#1f9a55"/>
+                <path d="M17.5 13.25l-2.25 3.25 2.25 3.25h-1.5l-1.5-2.25-1.5 2.25h-1.5l2.25-3.25-2.25-3.25h1.5l1.5 2.25 1.5-2.25h1.5z" fill="#FFF"/>
+                <path d="M5.5 6h5v1.5h-5V6zm0 3.5h5v1.5h-5V9.5zm0 3.5h3v1.5h-3V13zm0 3.5h3v1.5h-3v-1.5z" fill="#FFF" fill-opacity=".6"/>
+            </svg>
             <h2>Simulación Finalizada</h2>
             
             <div id="endContent"></div>
@@ -341,7 +366,7 @@
     <div id="scrLock" class="lockscreen" style="display:none;">
         <h1 style="font-size:3rem; margin-bottom:20px;">⚠️ TERMINAL BLOQUEADA</h1>
         <p style="font-size:1.3rem; margin-bottom:15px; font-weight:bold;">VIOLACIÓN DE LOS PROTOCOLOS DE INTEGRIDAD DEL EXAMEN</p>
-        <p style="max-width:600px; color:#94a3b8; font-size:1rem;">Se detectó un cambio de foco, minimización de pantalla o desvío de la ventana activa del navegador. Su examen se ha cancelado automáticamente, registrando una calificación final de cero (0).</p>
+        <p style="max-width:600px; color:#94a3b8; font-size:1rem;">Se detectó la salida de la pantalla completa, un cambio de pestaña o un desvío de la ventana activa del navegador. Su examen se ha cancelado automáticamente, registrando una calificación final de cero (0).</p>
     </div>
 
     <footer>
@@ -353,269 +378,33 @@
         const CODIGO_DOCENTE = "DOCENTE2026";
         const CODIGOS_VALIDOS = Array.from({length: 20}, (_, i) => `ALU${String(i + 1).padStart(2, '0')}`);
 
-        // BANCO DE PREGUNTAS COMPLETO (20 PUNTOS)
-        const preguntas = [
-            {
-                id: 1,
-                tipo: "choice",
-                texto: "Según la Unidad 2, ¿qué es estructuralmente una Planilla o Hoja de Cálculo?",
-                img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Una hoja tabular interactiva compuesta por columnas fijas de texto y renglones gráficos.",
-                    "Una herramienta informática diseñada para organizar, calcular y analizar datos dispuestos en tablas de filas y columnas.",
-                    "Un procesador dinámico estructurado únicamente para almacenar hasta 4000 caracteres de texto continuo.",
-                    "Un gestor automatizado de bases de datos relacionales sin capacidad de cálculo numérico."
-                ],
-                correcta: 1
-            },
-            {
-                id: 2,
-                tipo: "choice",
-                texto: "Al ingresar datos en una celda activa de Excel, ¿cómo se comportan por defecto las alineaciones automáticas según el tipo de información?",
-                img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Los rótulos de texto se alinean automáticamente al centro y los valores numéricos a la izquierda.",
-                    "Los rótulos de texto se alinean a la izquierda y los valores, fórmulas o funciones a la derecha.",
-                    "Tanto los rótulos de texto como los valores se configuran por default con alineación justificada.",
-                    "Los valores numéricos se van hacia la izquierda y las fórmulas matemáticas se centran automáticamente."
-                ],
-                correcta: 1
-            },
-            {
-                id: 3,
-                tipo: "choice",
-                texto: "¿Cuál es el límite total y la nomenclatura de columnas y filas que posee el área de trabajo tradicional descrita en el manual?",
-                img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "100 columnas (A-CV) y exactamente 10.000 filas horizontales.",
-                    "256 columnas en total (desde A hasta IV) y las filas van numeradas correlativamente desde 1 al 65.536.",
-                    "512 columnas continuas (A-ZZ) y un total indexado de 100.000 renglones de escritura.",
-                    "256 columnas representadas por números arábigos y 65.536 filas representadas por combinaciones de letras."
-                ],
-                correcta: 1
-            },
-            {
-                id: 4,
-                tipo: "choice",
-                texto: "En el entorno de interfaz gráfica analizado, ¿qué función cumple exactamente el elemento técnico 'fx' o Asistente para funciones?",
-                img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Sirve única y exclusivamente para limpiar los estilos de colores de bordes e inicializar la celda.",
-                    "Muestra el contenido de la celda activa y sirve para ingresar un texto, un número o una fórmula.",
-                    "Permite abrir la paleta interactiva de colores alternativos para pintar el fondo del encabezado.",
-                    "Es un botón directo para rotar el texto en ángulos personalizados e insertar diagramas."
-                ],
-                correcta: 1
-            },
-            {
-                id: 5,
-                tipo: "choice",
-                texto: "Usted requiere definir un 'Rango' dentro de su planilla de control de datos. ¿Qué definición se ajusta a lo estipulado en el material de informática?",
-                img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "La intersección exacta e indivisible entre una única fila horizontal y una columna vertical.",
-                    "Una selección de una o más celdas adyacentes o no que Excel trata como una sola unidad operativa.",
-                    "La extensión del archivo guardado en el disco rígido bajo el parámetro obligatorio .XLSX.",
-                    "El comando de la ficha que se agrega con el botón secundario del mouse a la barra de acceso rápido."
-                ],
-                correcta: 1
-            },
-            {
-                id: 6,
-                tipo: "concept",
-                texto: "Seleccione la definición correcta de 'Fórmula en general' en hojas de cálculo:",
-                img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Es una cadena de texto estática que sirve de rótulo informativo para los encabezados de página de contador.",
-                    "Es un código estructurado por el usuario que inicia obligatoriamente con el signo igual (=) para realizar operaciones o cálculos con los valores de las celdas.",
-                    "Una opción de formato condicional que pinta los bordes de la celda activa cuando se detectan errores humanos.",
-                    "El nombre provisional asignado por la barra de título cuando creamos un archivo por primera vez."
-                ],
-                correcta: 1
-            },
-            {
-                id: 7,
-                tipo: "concept",
-                texto: "Defina técnicamente el comportamiento de la función PROMEDIO:",
-                img: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Suma los valores de un rango seleccionado y luego resta de manera automática el número total de argumentos.",
-                    "Calcula la media aritmética de un conjunto de argumentos numéricos (suma los valores y los divide por la cantidad de elementos).",
-                    "Encuentra con precisión matemática el valor numérico más alto dentro de una matriz de celdas adyacentes.",
-                    "Cuenta las celdas que contienen cualquier tipo de caracteres de texto dentro de una fila activa."
-                ],
-                correcta: 1
-            },
-            {
-                id: 8,
-                tipo: "combo",
-                texto: "Analice las siguientes opciones y determine cuáles corresponden correctamente a las definiciones de SUMA, MAXIMO y MINIMO en Excel:",
-                img: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "SUMA une cadenas de texto; MAXIMO cuenta celdas vacías; MINIMO calcula restas automáticas.",
-                    "SUMA calcula el total de los valores de un rango; MAXIMO devuelve el valor más grande de un conjunto; MINIMO devuelve el valor más pequeño.",
-                    "SUMA multiplica matrices; MAXIMO busca errores de sintaxis; MINIMO reduce el ancho predeterminado de las columnas.",
-                    "SUMA acumula celdas con texto; MAXIMO redondea decimales; MINIMO elimina las filas inactivas por default."
-                ],
-                correcta: 1
-            },
-            {
-                id: 9,
-                tipo: "combo",
-                texto: "¿Qué acción realiza específicamente la función CONTAR dentro de un rango seleccionado de celdas?",
-                img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Suma secuencialmente todos los números que se encuentran almacenados en la fila activa.",
-                    "Cuenta la cantidad de celdas que contienen valores de tipo numérico dentro del rango especificado.",
-                    "Modifica de manera automática el tamaño de la fuente tipográfica de Arial a un valor menor.",
-                    "Elimina de forma irreversible las celdas duplicadas que poseen rótulos alfabéticos."
-                ],
-                correcta: 1
-            },
-            {
-                id: 10,
-                tipo: "choice",
-                texto: "El sistema muestra en una celda el error '########'. ¿Qué significa técnicamente y cómo se soluciona de forma inmediata?",
-                img: "https://images.unsplash.com/photo-1597839219216-a773cb2473e4?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "La fórmula está mal escrita. Se soluciona borrando por completo el contenido y reescribiendo la función desde el asistente.",
-                    "El ancho de la columna es insuficiente para mostrar el contenido numérico o de fecha. Se soluciona agrandando el ancho de la columna.",
-                    "Se ha dividido un valor numérico por cero de forma errónea. Se soluciona eliminando el divisor cero del rango adyacente.",
-                    "El tipo de dato introducido no es válido para los cálculos. Se soluciona aplicando colores alternativos."
-                ],
-                correcta: 1
-            },
-            {
-                id: 11,
-                tipo: "choice",
-                texto: "Al trabajar con fórmulas dinámicas, se genera el error '#¡VALOR!'. ¿A qué se debe y cuál es su tratamiento operativo?",
-                img: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Excel no reconoce el texto escrito en el nombre de la función. Se soluciona corrigiendo la ortografía de la fórmula.",
-                    "Se introduce un tipo de argumento o un operando incorrecto, como sumar texto con números. Se soluciona corrigiendo los tipos de datos.",
-                    "Una referencia de celda ya no existe o fue eliminada físicamente de la hoja. Se soluciona vinculando un nuevo rango.",
-                    "El cálculo genera un número demasiado grande o pequeño para la planilla. Se soluciona restableciendo el formato por defecto."
-                ],
-                correcta: 1
-            },
-            {
-                id: 12,
-                tipo: "choice",
-                texto: "¿Qué error se genera cuando Excel no logra reconocer el texto de una función o nombre de rango (ej. escribir =SUMM en lugar de =SUMA) y cómo se corrige?",
-                img: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Se produce el error #¡DIV/0! y se arregla configurando el formato de número automático.",
-                    "Se produce el error #¿NOMBRE? y se corrige escribiendo adecuadamente la sintaxis de la función admitida.",
-                    "Se produce el error #N/A y se arregla borrando las filas y columnas mediante la barra de inicio.",
-                    "Se produce el error #¡NULO! y se soluciona colocando un espacio de intersección válido."
-                ],
-                correcta: 1
-            },
-            {
-                id: 13,
-                tipo: "choice",
-                texto: "Si una fórmula hace referencia a una celda que ha sido eliminada por completo o sobreescrita de forma destructiva, ¿qué código de error se despliega?",
-                img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "#¡NUM!",
-                    "#¡REF!",
-                    "#N/A",
-                    "#¡DIV/0!"
-                ],
-                correcta: 1
-            },
-            {
-                id: 14,
-                tipo: "choice",
-                texto: "Determine el significado técnico de los errores críticos '#¡DIV/0!' y '#¡NUM!' de acuerdo a la lógica computacional de las planillas de cálculo:",
-                img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "#¡DIV/0! indica que el archivo .XLSX está corrupto; #¡NUM! avisa que la celda activa tiene habilitada la rotación de texto.",
-                    "#¡DIV/0! se produce al intentar dividir aritméticamente una cantidad por cero; #¡NUM! se manifiesta cuando se introducen valores numéricos no válidos o fuera de rango de cálculo.",
-                    "#¡DIV/0! expresa que las columnas verticales no coinciden al 100%; #¡NUM! expone que hay más de cuatro mil caracteres de texto.",
-                    "#¡DIV/0! advierte que los botones de desplazamiento están inactivos; #¡NUM! significa que falta aplicar el estilo de formato dinámico."
-                ],
-                correcta: 1
-            },
-            {
-                id: 15,
-                tipo: "match",
-                texto: "Evaluación de Relaciones Conceptuales: Una de forma interactiva el Tipo de Error (columna izquierda) con su respectiva Solución/Significado (columna derecha).",
-                img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=600&q=80",
-                parejas: [
-                    { izq: "#N/A", der: "El valor no está disponible para el cálculo de la función utilizada." },
-                    { izq: "#¡NULO!", der: "Se especificó una intersección de dos áreas que estructuralmente no se cruzan." }
-                ]
-            },
-            {
-                id: 16,
-                tipo: "choice",
-                texto: "Defina con precisión los conceptos fundamentales de 'Celda', 'Fila' y 'Rótulo' en el entorno de Excel:",
-                img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Celda es un archivo guardado; Fila es una columna de letras; Rótulo es una fórmula compleja.",
-                    "Celda es la intersección indivisible de una fila y una columna; Fila es el conjunto horizontal de celdas identificadas por números; Rótulo es la cadena de caracteres de texto que identifica elementos y se alinea a la izquierda.",
-                    "Celda es la paleta de colores de fondo; Fila es una línea vertical de letras; Rótulo es cualquier número utilizado en cálculos.",
-                    "Celda es el asistente 'fx'; Fila es la barra de herramientas rápidas; Rótulo es el comando para cerrar sesión."
-                ],
-                correcta: 1
-            },
-            {
-                id: 17,
-                tipo: "choice",
-                texto: "De acuerdo al manual de operaciones, ¿cuál es el comportamiento por defecto de la tipografía y qué ícono se utiliza para aplicar Negrita al texto?",
-                img: "https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "La fuente por defecto es Times New Roman tamaño 12 y se destaca con el icono 'C'.",
-                    "La fuente por defecto es Arial tamaño 10 y el icono para poner o quitar la negrita está representado por la letra 'B'.",
-                    "La fuente por defecto es Calibri tamaño 11 y se activa mediante el icono 'S'.",
-                    "La fuente por defecto es Courier tamaño 14 y se activa únicamente con la tecla ENTER."
-                ],
-                correcta: 2 // Cambiado a 2 porque por defecto según el manual provisto es Calibri 11 y el ícono interactivo posee la 'S' o estilos estipulados de formato. Nota: Ajustado de acuerdo al estándar y manual de la cátedra para exactitud del simulador.
-            },
-            {
-                id: 18,
-                tipo: "choice",
-                texto: "¿Cómo se realizan las modificaciones visuales de 'Color de texto', 'Color de relleno' (fondo de celda) y la aplicación de 'Bordes'?",
-                img: "https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "El color de texto pinta el fondo; el relleno cambia la fuente tipográfica; los bordes eliminan filas de la hoja.",
-                    "El color de texto define lo escrito en la celda; el color de relleno (balde) pinta el fondo de la celda; y los bordes estructuran las líneas divisorias de la tabla.",
-                    "Tanto el texto como el relleno se modifican de manera fija con el botón de deshacer; los bordes requieren macros de programación.",
-                    "El relleno borra el formato de la celda; el texto cambia la rotación a 90 grados; los bordes reajustan el ancho de columnas."
-                ],
-                correcta: 1
-            },
-            {
-                id: 19,
-                tipo: "choice",
-                texto: "¿Cuál de las siguientes opciones describe de manera correcta la función técnica del ícono de 'Alinear Justificado' en los entornos de hojas de cálculo?",
-                img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Desplaza de forma instantánea todos los valores numéricos hacia el margen derecho del rango activo.",
-                    "Distribuye el texto de manera uniforme entre los márgenes izquierdo y derecho de la celda, logrando bordes limpios y una lectura equilibrada del contenido.",
-                    "Elimina automáticamente el espacio vacío que existe entre las filas continuas.",
-                    "Pinta el fondo de los encabezados tabulares con colores alternativos según el diseño analítico."
-                ],
-                correcta: 1
-            },
-            {
-                id: 20,
-                tipo: "choice",
-                texto: "De acuerdo con las buenas prácticas digitales compartidas por la cátedra, ¿cómo se deben guardar los trabajos para evitar la pérdida destructiva de información?",
-                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80",
-                opciones: [
-                    "Los trabajos se graban automáticamente al apagar la terminal sin presionar ningún botón.",
-                    "Se guardan de forma segura utilizando los comandos de almacenamiento correspondientes para cifrar, empaquetar y transmitir el archivo a la base de datos central.",
-                    "Haciendo doble clic en una celda vacía y oprimiendo la barra espaciadora tres veces continuas.",
-                    "Minimizando la ventana activa del navegador para congelar los datos de manera persistente."
-                ],
-                correcta: 1
-            }
+        const preguntasBase = [
+            { id: 1, tipo: "choice", texto: "Según la Unidad 2, ¿qué es estructuralmente una Planilla o Hoja de Cálculo?", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80", opciones: ["Una hoja tabular interactiva compuesta por columnas fijas de texto y renglones gráficos.", "Una herramienta informática diseñada para organizar, calcular and analizar datos dispuestos en tablas de filas y columnas.", "Un procesador dinámico estructurado únicamente para almacenar hasta 4000 caracteres de texto continuo.", "Un gestor automatizado de bases de datos relacionales sin capacidad de cálculo numérico."], correcta: 1 },
+            { id: 2, tipo: "choice", texto: "Al ingresar datos en una celda activa de Excel, ¿cómo se comportan por defecto las alineaciones automáticas según el tipo de información?", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80", opciones: ["Los rótulos de texto se alinean automáticamente al centro y los valores numéricos a la izquierda.", "Los rótulos de texto se alinean a la izquierda y los valores, fórmulas o funciones a la derecha.", "Tanto los rótulos de texto como los valores se configuran por default con alineación justificada.", "Los valores numéricos se van hacia la izquierda y las fórmulas matemáticas se centran automáticamente."], correcta: 1 },
+            { id: 3, tipo: "choice", texto: "¿Cuál es el límite total y la nomenclatura de columnas y filas que posee el área de trabajo tradicional descrita en el manual?", img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80", opciones: ["100 columnas (A-CV) y exactamente 10.000 filas horizontales.", "256 columnas en total (desde A hasta IV) y las filas van numeradas correlativamente desde 1 al 65.536.", "512 columnas continuas (A-ZZ) y un total indexado de 100.000 renglones de escritura.", "256 columnas representadas por números arábigos y 65.536 filas representadas por combinaciones de letras."], correcta: 1 },
+            { id: 4, tipo: "choice", texto: "En el entorno de interfaz gráfica analizado, ¿qué función cumple exactamente el elemento técnico 'fx' o Asistente para funciones?", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80", opciones: ["Sirve única y exclusivamente para limpiar los estilos de colores de bordes e inicializar la celda.", "Muestra el contenido de la celda activa y sirve para ingresar un texto, un número o una fórmula.", "Permite abrir la paleta interactiva de colores alternativos para pintar el fondo del encabezado.", "Es un botón directo para rotar el texto en ángulos personalizados e insertar diagramas."], correcta: 1 },
+            { id: 5, tipo: "choice", texto: "Usted requiere definir un 'Rango' dentro de su planilla de control de datos. ¿Qué definición se ajusta a lo estipulado en el material de informática?", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80", opciones: ["La intersección exacta e indivisible entre una única fila horizontal y una columna vertical.", "Una selección de una o más celdas adyacentes o no que Excel trata como una sola unidad operativa.", "La extensión del archivo guardado en el disco rígido bajo el parámetro obligatorio .XLSX.", "El comando de la ficha que se agrega con el botón secundario del mouse a la barra de acceso rápido."], correcta: 1 },
+            { id: 6, tipo: "concept", texto: "Seleccione la definición correcta de 'Fórmula en general' en hojas de cálculo:", img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80", opciones: ["Es una cadena de texto estática que sirve de rótulo informativo para los encabezados de página de contador.", "Es un código estructurado por el usuario que inicia obligatoriamente con el signo igual (=) para realizar operaciones o cálculos con los valores de las celdas.", "Una option de formato condicional que pinta los bordes de la celda activa cuando se detectan errores humanos.", "El nombre provisional asignado por la barra de título cuando creamos un archivo por primera vez."], correcta: 1 },
+            { id: 7, tipo: "concept", texto: "Defina técnicamente el comportamiento de la función PROMEDIO:", img: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80", opciones: ["Suma los valores de un rango seleccionado y luego resta de manera automática el número total de argumentos.", "Calcula la media aritmética de un conjunto de argumentos numéricos (suma los valores y los divide por la cantidad de elementos).", "Encuentra con precisión matemática el valor numérico más alto dentro de una matriz de celdas adyacentes.", "Cuenta las celdas que contienen cualquier tipo de caracteres de texto dentro de una fila activa."], correcta: 1 },
+            { id: 8, tipo: "combo", texto: "Analice las siguientes opciones y determine cuáles corresponden correctamente a las definiciones de SUMA, MAXIMO y MINIMO en Excel:", img: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=600&q=80", opciones: ["SUMA une cadenas de texto; MAXIMO cuenta celdas vacías; MINIMO calcula restas automáticas.", "SUMA calcula el total de los valores de un rango; MAXIMO devuelve el valor más grande de un conjunto; MINIMO devuelve el valor más pequeño.", "SUMA multiplica matrices; MAXIMO busca errores de sintaxis; MINIMO reduce el ancho predeterminado de las columnas.", "SUMA acumula celdas con texto; MAXIMO redondea decimales; MINIMO elimina las filas inactivas por default."], correcta: 1 },
+            { id: 9, tipo: "combo", texto: "¿Qué action realiza específicamente la función CONTAR dentro de un rango seleccionado de celdas?", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80", opciones: ["Suma secuencialmente todos los números que se encuentran almacenados en la fila activa.", "Cuenta la cantidad de celdas que contienen valores de tipo numérico dentro del rango especificado.", "Modifica de manera automática el tamaño de la fuente tipográfica de Arial a un valor menor.", "Elimina de forma irreversible las celdas duplicadas que poseen rótulos alfabéticos."], correcta: 1 },
+            { id: 10, tipo: "choice", texto: "El sistema muestra en una celda el error '########'. ¿Qué significa técnicamente y cómo se soluciona de forma inmediata?", img: "https://images.unsplash.com/photo-1597839219216-a773cb2473e4?auto=format&fit=crop&w=600&q=80", opciones: ["La fórmula está mal escrita. Se soluciona borrando por completo el contenido y reescribiendo la función desde el asistente.", "El ancho de la columna es insuficiente para mostrar el contenido numérico o de fecha. Se soluciona agrandando el ancho de la columna.", "Se ha dividido un valor numérico por cero de forma errónea. Se soluciona eliminando el divisor cero del rango adyacente.", "El tipo de dato introducido no es válido para los cálculos. Se soluciona aplicando colores alternativos."], correcta: 1 },
+            { id: 11, tipo: "choice", texto: "Al trabajar con fórmulas dinámicas, se genera el error '#¡VALOR!'. ¿A qué se debe y cuál es su tratamiento operativo?", img: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=600&q=80", opciones: ["Excel no reconoce el texto escrito en el nombre de la función. Se soluciona corrigiendo la ortografía de la fórmula.", "Se introduce un tipo de argumento o un operando incorrecto, como sumar texto con números. Se soluciona corrigiendo los tipos de datos.", "Una referencia de celda ya no existe o fue eliminada físicamente de la hoja. Se soluciona vinculando un nuevo rango.", "El cálculo genera un número demasiado grande o pequeño para la planilla. Se soluciona restableciendo el formato por defecto."], correcta: 1 },
+            { id: 12, tipo: "choice", texto: "¿Qué error se genera cuando Excel no logra reconocer el texto de una función o nombre de rango (ej. escribir =SUMM en lugar de =SUMA) y cómo se corrige?", img: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=600&q=80", opciones: ["Se produce el error #¡DIV/0! y se arregla configurando el formato de número automático.", "Se produce el error #¿NOMBRE? y se corrige escribiendo adecuadamente la sintaxis de la función admitida.", "Se produce el error #N/A y se arregla borrando las filas y columnas mediante la barra de inicio.", "Se produce el error #¡NULO! y se soluciona colocando un espacio de intersección válido."], correcta: 1 },
+            { id: 13, tipo: "choice", texto: "Si una fórmula hace referencia a una celda que ha sido eliminada por completo o sobreescrita de forma destructiva, ¿qué código de error se despliega?", img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80", opciones: ["#¡NUM!", "#¡REF!", "#N/A", "#¡DIV/0!"], correcta: 1 },
+            { id: 14, tipo: "choice", texto: "Determine el significado técnico de los errores críticos '#¡DIV/0!' y '#¡NUM!' de acuerdo a la lógica computacional de las planillas de cálculo:", img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=600&q=80", opciones: ["#¡DIV/0! indica que el archivo .XLSX está corrupto; #¡NUM! avisa que la celda activa tiene habilitada la rotación de texto.", "#¡DIV/0! se produce al intentar dividir aritméticamente una cantidad por cero; #¡NUM! se manifiesta cuando se introducen valores numéricos no válidos o fuera de rango de cálculo.", "#¡DIV/0! expresa que las columnas verticales no coinciden al 100%; #¡NUM! expone que hay más de cuatro mil caracteres de texto.", "#¡DIV/0! advierte que los botones de desplazamiento están inactivos; #¡NUM! significa que falta aplicar el estilo de formato dinámico."], correcta: 1 },
+            { id: 15, tipo: "match", texto: "Evaluación de Relaciones Conceptuales: Una de forma interactiva el Tipo de Error (columna izquierda) con su respectiva Solución/Significado (columna derecha).", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=600&q=80", parejas: [{ izq: "#N/A", der: "El valor no está disponible para el cálculo de la función utilizada." }, { izq: "#¡NULO!", der: "Se especificó una intersección de dos áreas que estructuralmente no se cruzan." }] },
+            { id: 16, tipo: "choice", texto: "Defina con precisión los conceptos fundamentales de 'Celda', 'Fila' y 'Rótulo' en el entorno de Excel:", img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80", opciones: ["Celda es un archivo guardado; Fila es una columna de letras; Rótulo es una fórmula compleja.", "Celda es la intersección indivisible de una fila y una columna; Fila es el conjunto horizontal de celdas identificadas por números; Rótulo es la cadena de caracteres de texto que identifica elementos y se alinea a la izquierda.", "Celda es la paleta de colores de fondo; Fila es una línea vertical de letras; Rótulo es cualquier número utilizado en cálculos.", "Celda es el asistente 'fx'; Fila es la barra de herramientas rápidas; Rótulo es el comando para cerrar sesión."], correcta: 1 },
+            { id: 17, tipo: "choice", texto: "De acuerdo al manual de la Unidad 2, ¿cuál es la fuente que se menciona en el menú para entrar a otras fuentes y qué ícono se utiliza para aplicar Negrita al texto?", img: "https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&w=600&q=80", opciones: ["La fuente mencionada es Times New Roman y se destaca con el icono 'C'.", "La fuente por defecto analizada es Arial y el icono para poner o quitar el texto en negrita está representado por la letra 'B'.", "La fuente analizada es Calibri y se activa mediante el icono 'S' de estilos avanzados.", "La fuente analizada es Courier y se activa únicamente con la combinación de teclas ENTER."], correcta: 1 },
+            { id: 18, tipo: "choice", texto: "¿Cómo se realizan las modificaciones visuales de 'Color de texto', 'Color de relleno' (fondo de celda) y la aplicación de 'Bordes'?", img: "https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?auto=format&fit=crop&w=600&q=80", opciones: ["El color de texto pinta el fondo; el relleno cambia la fuente tipográfica; los bordes eliminan filas de la hoja.", "El color de texto define lo escrito en la celda; el color de relleno (balde) pinta el fondo de la celda; y los bordes estructuran las líneas divisorias de la tabla.", "Tanto el texto como el relleno se modifican de manera fija con el botón de deshacer; los bordes requieren macros de programación.", "El relleno borra el formato de la celda; el texto cambia la rotación a 90 grados; los bordes reajustan el ancho de columnas."], correcta: 1 },
+            { id: 19, tipo: "choice", texto: "¿Cuál de las siguientes opciones describe de manera correcta la función técnica del ícono de 'Alinear Justificado' en los entornos de hojas de cálculo?", img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80", opciones: ["Desplaza de forma instantánea todos los valores numéricos hacia el margen derecho del rango activo.", "Distribuye el texto de manera uniforme entre los márgenes izquierdo y derecho de la celda, logrando bordes limpios y una lectura equilibrada del contenido.", "Elimina automáticamente el espacio vacío que existe entre las filas continuas.", "Pinta el fondo de los encabezados tabulares con colores alternativos según el diseño analítico."], correcta: 1 },
+            { id: 20, tipo: "choice", texto: "De acuerdo con las buenas prácticas digitales compartidas por la cátedra, ¿cómo se deben guardar los trabajos para evitar la pérdida destructiva de información?", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80", opciones: ["Los trabajos se graban automáticamente al apagar la terminal sin presionar ningún botón.", "Se guardan de forma segura utilizando los comandos de almacenamiento correspondientes para cifrar, empaquetar y transmitir el archivo a la base de datos central.", "Haciendo doble clic en una celda vacía y oprimiendo la barra espaciadora tres veces continuas.", "Minimizando la ventana activa del navegador para congelar los datos de manera persistente."], correcta: 1 }
         ];
 
+        let preguntas = []; 
         let alumnoActual = "";
         let codigoActual = "";
+        let temaActual = "";
         let indexPregunta = 0;
         let respuestasAlumno = [];
         let trampaDetectada = false;
@@ -640,24 +429,25 @@
                     osc.start();
                     osc.stop(ctxAudio.currentTime + duracion);
                 }
-            } catch(e) { console.log("Audio no habilitado."); }
+            } catch(e) { console.log("Audio inactivo."); }
         }
 
         function activarPantallaCompleta() {
             let elem = document.documentElement;
             try {
-                if (elem.requestFullscreen) { elem.requestFullscreen().catch(e => console.log("Pantalla completa omitida localmente.")); }
+                if (elem.requestFullscreen) { elem.requestFullscreen().catch(e => console.log("Salteado local.")); }
                 else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
                 else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); }
-            } catch (err) { console.log("Navegador bloqueó pantalla completa."); }
+            } catch (err) { console.log("Bloqueo de navegador."); }
         }
 
         function intentarIngreso() {
             let txtNombre = document.getElementById("studentName").value.trim();
             let txtCodigo = document.getElementById("accessCode").value.trim().toUpperCase();
+            let selTema = document.getElementById("examTema").value;
 
-            if (!txtNombre || !txtCodigo) {
-                alert("ERR-01: Todos los campos del sistema de acceso son mandatorios.");
+            if (!txtNombre || !txtCodigo || !selTema) {
+                alert("ERR-01: Todos los campos, incluyendo la selección del Tema, son obligatorios.");
                 return;
             }
 
@@ -665,23 +455,25 @@
                 esModoDocente = true;
                 alumnoActual = "MODO_DOCENTE_TEST: " + txtNombre;
                 codigoActual = txtCodigo;
+                temaActual = selTema;
                 inicializarExamen();
                 return;
             }
 
             if (!CODIGOS_VALIDOS.includes(txtCodigo)) {
-                alert("ERR-02: El código ingresado no figura en los registros de la terminal.");
+                alert("ERR-02: El código de terminal ingresado no es válido.");
                 return;
             }
 
             if (localStorage.getItem(`status_${txtCodigo}`)) {
-                alert("ACCESO DENEGADO: Esta terminal ya ha procesado una sesión de evaluación.");
+                alert("ACCESO DENEGADO: Esta terminal ya procesó una sesión evaluativa.");
                 window.location.reload();
                 return;
             }
 
             alumnoActual = txtNombre;
             codigoActual = txtCodigo;
+            temaActual = selTema;
             inicializarExamen();
         }
 
@@ -689,10 +481,19 @@
             initAudio();
             reproducirSonidoBip(600, 0.15);
             activarPantallaCompleta(); 
+
+            if (temaActual === "TEMA 1") {
+                preguntas = JSON.parse(JSON.stringify(preguntasBase));
+            } else {
+                let primeraMitad = preguntasBase.slice(0, 10);
+                let segundaMitad = preguntasBase.slice(10, 20);
+                preguntas = JSON.parse(JSON.stringify(segundaMitad.concat(primeraMitad)));
+            }
             
             document.getElementById("scrLogin").classList.remove("active");
             document.getElementById("scrGame").classList.add("active");
 
+            // SE ACTIVA LA SÚPER GUARDIA AUTOMÁTICAMENTE SI NO ES DOCENTE
             if (!esModoDocente) { activarGuardiaSeguridad(); }
             cargarPregunta();
         }
@@ -704,7 +505,7 @@
             opcionTemporalSeleccionada = null; 
             
             document.getElementById("progBar").style.width = `${((indexPregunta) / preguntas.length) * 100}%`;
-            document.getElementById("qNum").innerText = `MÓDULO EVALUATIVO: PUNTO ${indexPregunta + 1} DE ${preguntas.length}`;
+            document.getElementById("qNum").innerText = `${temaActual} ~ MÓDULO EVALUATIVO: PREGUNTA ${indexPregunta + 1} DE ${preguntas.length}`;
             document.getElementById("qText").innerText = q.texto;
             document.getElementById("qImg").src = q.img;
 
@@ -855,7 +656,7 @@
                 respuestaCorrectaTexto = q.opciones[q.correcta];
                 
                 respuestasAlumno.push({
-                    preguntaId: q.id,
+                    preguntaOriginalId: q.id,
                     enunciado: q.texto,
                     tipo: q.tipo,
                     respuestaUsuario: detalleUsuario,
@@ -866,11 +667,10 @@
                 let aciertos = 0;
                 q.respuestasTemporales.forEach(par => { if (par.izqId === par.derId) { aciertos++; } });
                 
-                // Mapeo legible de las parejas correctas para la auditoría docente
                 respuestaCorrectaTexto = q.parejas.map(p => `[${p.izq} ➔ ${p.der}]`).join(" | ");
 
                 respuestasAlumno.push({
-                    preguntaId: q.id,
+                    preguntaOriginalId: q.id,
                     enunciado: q.texto,
                     tipo: q.tipo,
                     respuestaUsuario: "Ejercitación de emparejamiento completada",
@@ -888,13 +688,17 @@
         }
 
         function finalizarYTransmitir(fueDescalificado = false) {
+            // REMOVEMOS ABSOLUTAMENTE TODOS LOS ESCUCHADORES DE CONTROL PARA QUE NO SE TRABE AL TERMINAR
             window.onblur = null;
             document.onvisibilitychange = null;
+            document.onkeydown = null;
+            document.removeEventListener("fullscreenchange", checkPantallaCompletaCambio);
+            document.removeEventListener("webkitfullscreenchange", checkPantallaCompletaCambio);
+            document.removeEventListener("mozfullscreenchange", checkPantallaCompletaCambio);
+            document.removeEventListener("MSFullscreenChange", checkPantallaCompletaCambio);
 
             let aciertosTotales = respuestasAlumno.filter(r => r.esCorrecta).length;
             let notaAsignada = fueDescalificado ? 0 : aciertosTotales;
-            
-            // CÁLCULO DE LA NOTA FINAL (Escala 1 a 10 de Argentina)
             let notaFinalDiez = ((notaAsignada / preguntas.length) * 10).toFixed(2);
 
             if (!esModoDocente) {
@@ -903,7 +707,8 @@
                 let payload = {
                     AlumNombres: alumnoActual,
                     CodigoTerminal: codigoActual,
-                    EstadoFinal: fueDescalificado ? "DESCALIFICADO POR INFRACCION DE FOCO" : "COMPLETADO REGULARMENTE",
+                    TemaElegido: temaActual, 
+                    EstadoFinal: fueDescalificado ? "DESCALIFICADO POR INFRACCION DE FOCO O PANTALLA" : "COMPLETADO REGULARMENTE",
                     PuntosObtenidos: `${notaAsignada} / ${preguntas.length}`,
                     NotaFinalEscalaDiez: notaFinalDiez,
                     DetalleRespuestas: JSON.stringify(respuestasAlumno),
@@ -915,7 +720,7 @@
                     headers: { "Content-Type": "application/json", "Accept": "application/json" },
                     body: JSON.stringify(payload)
                 })
-                .then(res => console.log("Datos de alumno enviados."))
+                .then(res => console.log("Transmitido."))
                 .catch(err => console.error("Error de red.", err));
             }
 
@@ -930,37 +735,36 @@
                 let contenedorFinal = document.getElementById("endContent");
                 if (esModoDocente) {
                     let htmlReporte = `
-                        <p style="color: var(--accent-blue); font-weight: bold; font-size: 1.3rem;">📊 PANEL DE EVALUACIÓN DIRECTA (MODO DOCENTE)</p>
-                        <p class="instruct" style="margin-bottom:10px;">Formspree fue pausado de forma segura para no ocupar espacio mensual.</p>
+                        <p style="color: var(--accent-blue); font-weight: bold; font-size: 1.2rem;">📊 AUDITORÍA DIRECTA DE CÁTEDRA (${temaActual})</p>
+                        <p class="instruct" style="margin-bottom:10px;">Entorno simulado en Modo Docente activo.</p>
                         
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
                             <div style="background:#475569; padding:12px; border-radius:6px; font-weight:bold; font-size:1.1rem;">
                                 Puntos: ${notaAsignada} / ${preguntas.length}
                             </div>
                             <div style="background:#107c41; padding:12px; border-radius:6px; font-weight:bold; font-size:1.1rem; color: #fff;">
-                                Nota Final: ${notaFinalDiez} / 10.00
+                                Nota: ${notaFinalDiez} / 10.00
                             </div>
                         </div>
 
-                        <h3 style="text-align:left; font-size:1rem; margin-top:15px; color:var(--text-main);">Auditoría y Soluciones de las Respuestas:</h3>
+                        <h3 style="text-align:left; font-size:1rem; margin-top:15px; color:var(--text-main);">Detalle de Respuestas Evaluadas en este Tema:</h3>
                         <div class="teacher-report">
                     `;
 
                     respuestasAlumno.forEach((r, idx) => {
                         htmlReporte += `
                             <div class="report-item">
-                                <strong>Punto ${idx + 1}:</strong> ${r.enunciado}<br>
-                                <span style="color: var(--text-muted);">Su respuesta: ${r.respuestaUsuario}</span><br>
+                                <strong>Pág ${idx + 1} (Pregunta ID Original #${r.preguntaOriginalId}):</strong> ${r.enunciado}<br>
+                                <span style="color: var(--text-muted);">Respuesta: ${r.respuestaUsuario}</span><br>
                                 <span class="${r.esCorrecta ? 'report-success' : 'report-error'}">
-                                    ${r.esCorrecta ? '✓ CORRECTO (+1 punto)' : '✗ INCORRECTO (0 puntos)'}
+                                    ${r.esCorrecta ? '✓ CORRECTO (+1)' : '✗ INCORRECTO (0)'}
                                 </span>
                         `;
                         
-                        // Si la respuesta está mal, despliega la solución que acierta en el reporte
                         if (!r.esCorrecta) {
                             htmlReporte += `
                                 <div class="solution-box">
-                                    <strong>💡 Respuesta correcta esperada:</strong> ${r.solucionCorrecta}
+                                    <strong>💡 Respuesta esperada:</strong> ${r.solucionCorrecta}
                                 </div>
                             `;
                         }
@@ -968,21 +772,44 @@
                         htmlReporte += `</div>`;
                     });
 
-                    htmlReporte += `</div><button style="margin-top:20px; background:#475569;" onclick="window.location.reload()">Volver a Iniciar Simulación</button>`;
+                    htmlReporte += `</div><button style="margin-top:20px; background:#475569;" onclick="window.location.reload()">Volver a Iniciar</button>`;
                     contenedorFinal.innerHTML = htmlReporte;
                 } else {
                     contenedorFinal.innerHTML = `
-                        <p class="instruct" style="margin-top:15px;">Sus respuestas han sido cifradas y transmitidas de manera segura a la base de datos central de la cátedra mediante protocolos asincrónicos.</p>
+                        <p class="instruct" style="margin-top:15px;">Sus respuestas para el <strong>${temaActual}</strong> han sido cifradas y transmitidas de manera segura a la base de datos central mediante protocolos asincrónicos.</p>
                         <p style="color: var(--excel-green); font-weight: bold; font-size: 1.2rem; margin: 20px 0;">Estado del envío: Transmitido con Éxito</p>
-                        <p class="text-muted" style="font-size:0.85rem;">Puede cerrar esta ventana o salir de la sesión de manera segura.</p>
+                        <p class="text-muted" style="font-size:0.85rem;">Puede cerrar esta ventana de forma segura.</p>
                     `;
                 }
             }
         }
 
+        // --- SISTEMA COMPLETO DE SEGURIDAD ANTITRAMPAS ---
         function activarGuardiaSeguridad() {
+            // 1. Detección por cambio de pestaña o minimizado
             window.onblur = function() { ejecutarBloqueoPorTrampa(); };
             document.onvisibilitychange = function() { if (document.visibilityState === 'hidden') { ejecutarBloqueoPorTrampa(); } };
+            
+            // 2. Detección obligatoria si achican o salen de la pantalla completa (Teclado o ESC)
+            document.addEventListener("fullscreenchange", checkPantallaCompletaCambio);
+            document.addEventListener("webkitfullscreenchange", checkPantallaCompletaCambio);
+            document.addEventListener("mozfullscreenchange", checkPantallaCompletaCambio);
+            document.addEventListener("MSFullscreenChange", checkPantallaCompletaCambio);
+
+            // 3. Bloqueo manual de combinaciones críticas por teclado (Alt, Windows, F12)
+            document.onkeydown = function(e) {
+                if (e.key === "Escape" || e.keyCode === 27 || e.altKey || e.key === "Meta" || e.keyCode === 91 || e.key === "F12") {
+                    ejecutarBloqueoPorTrampa();
+                }
+            };
+        }
+
+        function checkPantallaCompletaCambio() {
+            // Si el estado de fullscreen pasa a ser nulo en medio del examen, significa que salieron
+            let isFull = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+            if (!isFull && !esModoDocente) {
+                ejecutarBloqueoPorTrampa();
+            }
         }
 
         function ejecutarBloqueoPorTrampa() {
